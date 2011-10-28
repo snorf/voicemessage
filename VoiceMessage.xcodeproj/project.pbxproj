@@ -21,6 +21,11 @@
 		04EF5ED7145B3C050075FD4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EB5145B3C050075FD4F /* Foundation.framework */; };
 		04EF5EDF145B3C050075FD4F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04EF5EDD145B3C050075FD4F /* InfoPlist.strings */; };
 		04EF5EE2145B3C050075FD4F /* VoiceMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EE1145B3C050075FD4F /* VoiceMessageTests.m */; };
+		04EF5EF1145B3C830075FD4F /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EEE145B3C830075FD4F /* CAStreamBasicDescription.cpp */; };
+		04EF5EF5145B3D110075FD4F /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EF4145B3D110075FD4F /* AudioController.m */; };
+		04EF5EFB145B43C50075FD4F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EFA145B43C50075FD4F /* AudioToolbox.framework */; };
+		04EF5F00145B45390075FD4F /* AQPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EFD145B45390075FD4F /* AQPlayer.mm */; };
+		04EF5F01145B45390075FD4F /* AQRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EFF145B45390075FD4F /* AQRecorder.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,22 +43,35 @@
 		04EF5EB3145B3C050075FD4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04EF5EB5145B3C050075FD4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		04EF5EB7145B3C050075FD4F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		04EF5EBB145B3C050075FD4F /* VoiceMessage-Info.plist */ = {isa = PBXFileReference; path = "VoiceMessage-Info.plist"; sourceTree = "<group>"; };
+		04EF5EBB145B3C050075FD4F /* VoiceMessage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VoiceMessage-Info.plist"; sourceTree = "<group>"; };
 		04EF5EBD145B3C050075FD4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04EF5EBF145B3C050075FD4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		04EF5EC1145B3C050075FD4F /* VoiceMessage-Prefix.pch */ = {isa = PBXFileReference; path = "VoiceMessage-Prefix.pch"; sourceTree = "<group>"; };
-		04EF5EC2145B3C050075FD4F /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		04EF5EC1145B3C050075FD4F /* VoiceMessage-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VoiceMessage-Prefix.pch"; sourceTree = "<group>"; };
+		04EF5EC2145B3C050075FD4F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04EF5EC3145B3C050075FD4F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		04EF5EC5145B3C050075FD4F /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		04EF5EC5145B3C050075FD4F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		04EF5EC6145B3C050075FD4F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		04EF5EC9145B3C050075FD4F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		04EF5ECC145B3C050075FD4F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		04EF5ED3145B3C050075FD4F /* VoiceMessageTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceMessageTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04EF5ED4145B3C050075FD4F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		04EF5EDC145B3C050075FD4F /* VoiceMessageTests-Info.plist */ = {isa = PBXFileReference; path = "VoiceMessageTests-Info.plist"; sourceTree = "<group>"; };
+		04EF5EDC145B3C050075FD4F /* VoiceMessageTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VoiceMessageTests-Info.plist"; sourceTree = "<group>"; };
 		04EF5EDE145B3C050075FD4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		04EF5EE0145B3C050075FD4F /* VoiceMessageTests.h */ = {isa = PBXFileReference; path = VoiceMessageTests.h; sourceTree = "<group>"; };
+		04EF5EE0145B3C050075FD4F /* VoiceMessageTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoiceMessageTests.h; sourceTree = "<group>"; };
 		04EF5EE1145B3C050075FD4F /* VoiceMessageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoiceMessageTests.m; sourceTree = "<group>"; };
+		04EF5EEC145B3C830075FD4F /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
+		04EF5EED145B3C830075FD4F /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
+		04EF5EEE145B3C830075FD4F /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAStreamBasicDescription.cpp; sourceTree = "<group>"; };
+		04EF5EEF145B3C830075FD4F /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
+		04EF5EF0145B3C830075FD4F /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		04EF5EF2145B3CD50075FD4F /* CADebugPrintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugPrintf.h; sourceTree = "<group>"; };
+		04EF5EF3145B3D110075FD4F /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
+		04EF5EF4145B3D110075FD4F /* AudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioController.m; sourceTree = "<group>"; };
+		04EF5EFA145B43C50075FD4F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		04EF5EFC145B45390075FD4F /* AQPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQPlayer.h; path = ../../../Downloads/SpeakHere/Classes/AQPlayer.h; sourceTree = "<group>"; };
+		04EF5EFD145B45390075FD4F /* AQPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AQPlayer.mm; path = ../../../Downloads/SpeakHere/Classes/AQPlayer.mm; sourceTree = "<group>"; };
+		04EF5EFE145B45390075FD4F /* AQRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQRecorder.h; path = ../../../Downloads/SpeakHere/Classes/AQRecorder.h; sourceTree = "<group>"; };
+		04EF5EFF145B45390075FD4F /* AQRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AQRecorder.mm; path = ../../../Downloads/SpeakHere/Classes/AQRecorder.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04EF5EFB145B43C50075FD4F /* AudioToolbox.framework in Frameworks */,
 				04EF5EB4145B3C050075FD4F /* UIKit.framework in Frameworks */,
 				04EF5EB6145B3C050075FD4F /* Foundation.framework in Frameworks */,
 				04EF5EB8145B3C050075FD4F /* CoreGraphics.framework in Frameworks */,
@@ -83,6 +102,7 @@
 		04EF5EA4145B3C050075FD4F = {
 			isa = PBXGroup;
 			children = (
+				04EF5EFA145B43C50075FD4F /* AudioToolbox.framework */,
 				04EF5EB9145B3C050075FD4F /* VoiceMessage */,
 				04EF5EDA145B3C050075FD4F /* VoiceMessageTests */,
 				04EF5EB2145B3C050075FD4F /* Frameworks */,
@@ -113,8 +133,11 @@
 		04EF5EB9145B3C050075FD4F /* VoiceMessage */ = {
 			isa = PBXGroup;
 			children = (
+				04EF5F02145B453D0075FD4F /* Play & Record */,
 				04EF5EC2145B3C050075FD4F /* AppDelegate.h */,
 				04EF5EC3145B3C050075FD4F /* AppDelegate.m */,
+				04EF5EF3145B3D110075FD4F /* AudioController.h */,
+				04EF5EF4145B3D110075FD4F /* AudioController.m */,
 				04EF5EC5145B3C050075FD4F /* ViewController.h */,
 				04EF5EC6145B3C050075FD4F /* ViewController.m */,
 				04EF5EC8145B3C050075FD4F /* ViewController_iPhone.xib */,
@@ -127,6 +150,7 @@
 		04EF5EBA145B3C050075FD4F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				04EF5EEB145B3C2C0075FD4F /* IPublicUtility */,
 				04EF5EBB145B3C050075FD4F /* VoiceMessage-Info.plist */,
 				04EF5EBC145B3C050075FD4F /* InfoPlist.strings */,
 				04EF5EBF145B3C050075FD4F /* main.m */,
@@ -152,6 +176,30 @@
 				04EF5EDD145B3C050075FD4F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		04EF5EEB145B3C2C0075FD4F /* IPublicUtility */ = {
+			isa = PBXGroup;
+			children = (
+				04EF5EF2145B3CD50075FD4F /* CADebugPrintf.h */,
+				04EF5EEC145B3C830075FD4F /* CADebugMacros.h */,
+				04EF5EED145B3C830075FD4F /* CAMath.h */,
+				04EF5EEE145B3C830075FD4F /* CAStreamBasicDescription.cpp */,
+				04EF5EEF145B3C830075FD4F /* CAStreamBasicDescription.h */,
+				04EF5EF0145B3C830075FD4F /* CAXException.h */,
+			);
+			name = IPublicUtility;
+			sourceTree = "<group>";
+		};
+		04EF5F02145B453D0075FD4F /* Play & Record */ = {
+			isa = PBXGroup;
+			children = (
+				04EF5EFC145B45390075FD4F /* AQPlayer.h */,
+				04EF5EFD145B45390075FD4F /* AQPlayer.mm */,
+				04EF5EFE145B45390075FD4F /* AQRecorder.h */,
+				04EF5EFF145B45390075FD4F /* AQRecorder.mm */,
+			);
+			name = "Play & Record";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +312,10 @@
 				04EF5EC0145B3C050075FD4F /* main.m in Sources */,
 				04EF5EC4145B3C050075FD4F /* AppDelegate.m in Sources */,
 				04EF5EC7145B3C050075FD4F /* ViewController.m in Sources */,
+				04EF5EF1145B3C830075FD4F /* CAStreamBasicDescription.cpp in Sources */,
+				04EF5EF5145B3D110075FD4F /* AudioController.m in Sources */,
+				04EF5F00145B45390075FD4F /* AQPlayer.mm in Sources */,
+				04EF5F01145B45390075FD4F /* AQRecorder.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +393,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c++",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -359,7 +415,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"-x",
+					"objective-c++",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

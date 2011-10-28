@@ -9,6 +9,18 @@
 #import "ViewController.h"
 
 @implementation ViewController
+@synthesize startButton;
+@synthesize stopButton;
+@synthesize audioController;
+
+- (void)dealloc
+{
+    [audioController stopAUGraph];
+	[audioController release];
+    [startButton release];
+    [stopButton release];
+    [super dealloc];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -21,11 +33,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	[audioController initializeAUGraph];
 }
 
 - (void)viewDidUnload
 {
+    [self setStartButton:nil];
+    [self setStopButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -61,4 +75,15 @@
     }
 }
 
+- (IBAction)startAction:(id)sender {
+    [startButton setEnabled:NO];
+    [audioController startAUGraph];
+    [stopButton setEnabled:YES];
+}
+
+- (IBAction)stopAction:(id)sender {
+    [stopButton setEnabled:NO];
+    [audioController stopAUGraph];
+    [startButton setEnabled:YES];
+}
 @end

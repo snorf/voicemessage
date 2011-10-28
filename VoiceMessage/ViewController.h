@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AudioController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController {
+    IBOutlet AudioController *audioController;
+}
+@property (retain, nonatomic) IBOutlet UIButton *startButton;
+@property (retain, nonatomic) IBOutlet UIButton *stopButton;
+@property (readonly, nonatomic) AudioController *audioController;
 
+- (IBAction)startAction:(id)sender;
+- (IBAction)stopAction:(id)sender;
 @end
