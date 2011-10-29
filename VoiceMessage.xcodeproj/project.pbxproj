@@ -22,6 +22,10 @@
 		046AD634145C2B5A00DB64F4 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 046AD62B145C2B5A00DB64F4 /* ASINetworkQueue.m */; };
 		046AD63C145C2F3A00DB64F4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 046AD63B145C2F3A00DB64F4 /* Reachability.m */; };
 		046AD644145C319200DB64F4 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 046AD643145C319200DB64F4 /* libxml2.dylib */; };
+		046AD649145C59EE00DB64F4 /* AQPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 046AD646145C59EE00DB64F4 /* AQPlayer.m */; };
+		046AD64A145C59EE00DB64F4 /* AQRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 046AD648145C59EE00DB64F4 /* AQRecorder.m */; };
+		046AD6A5145C9E4100DB64F4 /* megaphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 046AD6A3145C9E4100DB64F4 /* megaphone.png */; };
+		046AD6A6145C9E4100DB64F4 /* megaphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046AD6A4145C9E4100DB64F4 /* megaphone@2x.png */; };
 		04EF5EB4145B3C050075FD4F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EB3145B3C050075FD4F /* UIKit.framework */; };
 		04EF5EB6145B3C050075FD4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EB5145B3C050075FD4F /* Foundation.framework */; };
 		04EF5EB8145B3C050075FD4F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EB7145B3C050075FD4F /* CoreGraphics.framework */; };
@@ -38,8 +42,6 @@
 		04EF5EE2145B3C050075FD4F /* VoiceMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EE1145B3C050075FD4F /* VoiceMessageTests.m */; };
 		04EF5EF1145B3C830075FD4F /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EEE145B3C830075FD4F /* CAStreamBasicDescription.cpp */; };
 		04EF5EFB145B43C50075FD4F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EFA145B43C50075FD4F /* AudioToolbox.framework */; };
-		04EF5F00145B45390075FD4F /* AQPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EFD145B45390075FD4F /* AQPlayer.mm */; };
-		04EF5F01145B45390075FD4F /* AQRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EFF145B45390075FD4F /* AQRecorder.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,12 @@
 		046AD63A145C2F3A00DB64F4 /* Reachability.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = Reachability.h; sourceTree = "<group>"; };
 		046AD63B145C2F3A00DB64F4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		046AD643145C319200DB64F4 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		046AD645145C59EE00DB64F4 /* AQPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQPlayer.h; sourceTree = "<group>"; };
+		046AD646145C59EE00DB64F4 /* AQPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQPlayer.m; sourceTree = "<group>"; };
+		046AD647145C59EE00DB64F4 /* AQRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQRecorder.h; sourceTree = "<group>"; };
+		046AD648145C59EE00DB64F4 /* AQRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQRecorder.m; sourceTree = "<group>"; };
+		046AD6A3145C9E4100DB64F4 /* megaphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = megaphone.png; sourceTree = "<group>"; };
+		046AD6A4145C9E4100DB64F4 /* megaphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "megaphone@2x.png"; sourceTree = "<group>"; };
 		04EF5EAF145B3C050075FD4F /* VoiceMessage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceMessage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04EF5EB3145B3C050075FD4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04EF5EB5145B3C050075FD4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -108,10 +116,6 @@
 		04EF5EF0145B3C830075FD4F /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
 		04EF5EF2145B3CD50075FD4F /* CADebugPrintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugPrintf.h; sourceTree = "<group>"; };
 		04EF5EFA145B43C50075FD4F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		04EF5EFC145B45390075FD4F /* AQPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQPlayer.h; path = ../../../Downloads/SpeakHere/Classes/AQPlayer.h; sourceTree = "<group>"; };
-		04EF5EFD145B45390075FD4F /* AQPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AQPlayer.mm; path = ../../../Downloads/SpeakHere/Classes/AQPlayer.mm; sourceTree = "<group>"; };
-		04EF5EFE145B45390075FD4F /* AQRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQRecorder.h; path = ../../../Downloads/SpeakHere/Classes/AQRecorder.h; sourceTree = "<group>"; };
-		04EF5EFF145B45390075FD4F /* AQRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AQRecorder.mm; path = ../../../Downloads/SpeakHere/Classes/AQRecorder.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +152,8 @@
 		04EF5EA4145B3C050075FD4F = {
 			isa = PBXGroup;
 			children = (
+				046AD6A3145C9E4100DB64F4 /* megaphone.png */,
+				046AD6A4145C9E4100DB64F4 /* megaphone@2x.png */,
 				046AD643145C319200DB64F4 /* libxml2.dylib */,
 				046AD63A145C2F3A00DB64F4 /* Reachability.h */,
 				046AD63B145C2F3A00DB64F4 /* Reachability.m */,
@@ -266,10 +272,10 @@
 		04EF5F02145B453D0075FD4F /* Play & Record */ = {
 			isa = PBXGroup;
 			children = (
-				04EF5EFC145B45390075FD4F /* AQPlayer.h */,
-				04EF5EFD145B45390075FD4F /* AQPlayer.mm */,
-				04EF5EFE145B45390075FD4F /* AQRecorder.h */,
-				04EF5EFF145B45390075FD4F /* AQRecorder.mm */,
+				046AD645145C59EE00DB64F4 /* AQPlayer.h */,
+				046AD646145C59EE00DB64F4 /* AQPlayer.m */,
+				046AD647145C59EE00DB64F4 /* AQRecorder.h */,
+				046AD648145C59EE00DB64F4 /* AQRecorder.m */,
 			);
 			name = "Play & Record";
 			sourceTree = "<group>";
@@ -347,6 +353,8 @@
 				04EF5EBE145B3C050075FD4F /* InfoPlist.strings in Resources */,
 				04EF5ECA145B3C050075FD4F /* ViewController_iPhone.xib in Resources */,
 				04EF5ECD145B3C050075FD4F /* ViewController_iPad.xib in Resources */,
+				046AD6A5145C9E4100DB64F4 /* megaphone.png in Resources */,
+				046AD6A6145C9E4100DB64F4 /* megaphone@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,8 +393,6 @@
 				04EF5EC4145B3C050075FD4F /* AppDelegate.m in Sources */,
 				04EF5EC7145B3C050075FD4F /* ViewController.m in Sources */,
 				04EF5EF1145B3C830075FD4F /* CAStreamBasicDescription.cpp in Sources */,
-				04EF5F00145B45390075FD4F /* AQPlayer.mm in Sources */,
-				04EF5F01145B45390075FD4F /* AQRecorder.mm in Sources */,
 				046AD62D145C2B5A00DB64F4 /* ASIAuthenticationDialog.m in Sources */,
 				046AD62E145C2B5A00DB64F4 /* ASIDataCompressor.m in Sources */,
 				046AD62F145C2B5A00DB64F4 /* ASIDataDecompressor.m in Sources */,
@@ -396,6 +402,8 @@
 				046AD633145C2B5A00DB64F4 /* ASIInputStream.m in Sources */,
 				046AD634145C2B5A00DB64F4 /* ASINetworkQueue.m in Sources */,
 				046AD63C145C2F3A00DB64F4 /* Reachability.m in Sources */,
+				046AD649145C59EE00DB64F4 /* AQPlayer.m in Sources */,
+				046AD64A145C59EE00DB64F4 /* AQRecorder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,7 +485,7 @@
 					"-x",
 					"objective-c++",
 				);
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -500,7 +508,7 @@
 					"-x",
 					"objective-c++",
 				);
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -513,8 +521,9 @@
 				GCC_PREFIX_HEADER = "VoiceMessage/VoiceMessage-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "VoiceMessage/VoiceMessage-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos4.2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -526,8 +535,9 @@
 				GCC_PREFIX_HEADER = "VoiceMessage/VoiceMessage-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "VoiceMessage/VoiceMessage-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos4.2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

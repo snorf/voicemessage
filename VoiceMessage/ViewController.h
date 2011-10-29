@@ -10,21 +10,29 @@
 #import "AQPlayer.h"
 #import "AQRecorder.h"
 
-@interface ViewController : UIViewController {
-    IBOutlet UIButton *recordButton;
+@interface ViewController : UIViewController<UITextFieldDelegate> {
+    IBOutlet UIBarButtonItem *recordButton;
     IBOutlet UIButton *playButton;
+    IBOutlet UIBarButtonItem *uploadButton;
     IBOutlet UILabel *statusLabel;
+    IBOutlet UITextField *codeTextField;
     AQPlayer*					player;
 	AQRecorder*					recorder;
     BOOL						playbackWasInterrupted;
 	BOOL						playbackWasPaused;
-	
+    NSInteger                   phase;
+	enum {
+        upload = 0,
+        download
+    };
 	CFStringRef					recordFilePath;	
 }
 @property (retain, nonatomic) IBOutlet UILabel *statusLabel;
-@property (retain, nonatomic) IBOutlet UIButton *recordButton;
+@property (retain, nonatomic) IBOutlet UIBarButtonItem *recordButton;
 @property (retain, nonatomic) IBOutlet UIButton *playButton;
-@property (retain, nonatomic) IBOutlet UIButton *uploadButton;
+@property (retain, nonatomic) IBOutlet UIBarButtonItem *uploadButton;
+@property (retain, nonatomic) IBOutlet UIProgressView *progressIndicator;
+@property (retain, nonatomic) IBOutlet UITextField *codeTextField;
 @property (readonly)			AQPlayer			*player;
 @property (readonly)			AQRecorder			*recorder;
 @property						BOOL				playbackWasInterrupted;

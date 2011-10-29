@@ -14,6 +14,8 @@
 @synthesize recordButton;
 @synthesize playButton;
 @synthesize uploadButton;
+@synthesize progressIndicator;
+@synthesize codeTextField;
 @synthesize player;
 @synthesize recorder;
 @synthesize playbackWasInterrupted;
@@ -30,6 +32,9 @@
     [uploadButton release];
     [statusLabel release];
     [statusLabel release];
+    [progressIndicator release];
+    [codeTextField release];
+    [codeTextField release];
 	[super dealloc];
 }
 
@@ -44,6 +49,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if(self) {
+        self.title = @"VoiceMessage";
+    }
     [self initializeAudio];
 }
 
@@ -55,6 +63,10 @@
     [statusLabel release];
     statusLabel = nil;
     [self setStatusLabel:nil];
+    [self setProgressIndicator:nil];
+    [codeTextField release];
+    codeTextField = nil;
+    [self setCodeTextField:nil];
     [super viewDidUnload];
 }
 
@@ -111,11 +123,13 @@
     
 	// now create a new queue for the recorded file
 	recordFilePath = (CFStringRef)[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
+    
 	player->CreateQueueForFile(recordFilePath);
     
 	// Set the button's state back to "record"
-	[recordButton setTitle:@"Record" forState:UIControlStateNormal];
+	[recordButton setTitle:@"Record"];
 	playButton.enabled = YES;
+    uploadButton.enabled = YES;
 }
 
 - (IBAction)play:(id)sender
@@ -146,10 +160,11 @@
 	}
 	else // If we're not recording, start.
 	{
-		playButton.enabled = NO;	
+		playButton.enabled = NO;
+        uploadButton.enabled = NO;
 		
 		// Set the button's state to "stop"
-		[recordButton setTitle:@"Stop" forState:UIControlStateNormal];
+		[recordButton setTitle:@"Stop"];
         
 		// Start the recorder
 		recorder->StartRecord(CFSTR("recordedFile.caf"));
@@ -158,23 +173,83 @@
 
 - (IBAction)upload:(id)sender
 {
+    NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
     NSURL *url = [NSURL URLWithString:@"http://localhost:8080/upload"];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    [request addFile:[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"] forKey:@"audiofile"];
+    [request addFile:filePath forKey:@"audiofile"];
     [request setRequestMethod:@"POST"];
     [request setDelegate:self];
+    [progressIndicator setProgress:0.0];
+    [progressIndicator setHidden:NO];
+    [request setUploadProgressDelegate:progressIndicator];
+    NSLog(@"Uploading: %@", filePath);
     statusLabel.text = @"Uploading...";
+    phase = upload;
     [request startAsynchronous];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    // We have only one textfield so we don't need to see who it is
+    [textField resignFirstResponder];
+
+    // Only try to download if there is something in the textfield that is 21 characters long
+    if (textField.text.length == 21) {
+        NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:8080/audio/%@", codeTextField.text]];
+        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+        [request setDownloadDestinationPath:filePath];
+        [playButton setEnabled:NO];
+        [recordButton setEnabled:NO];
+        [uploadButton setEnabled:NO];
+        [progressIndicator setProgress:0.0];
+        [request setDownloadProgressDelegate:progressIndicator];
+        NSLog(@"Downloading: %@ to: %@", [url absoluteString], filePath);
+        
+        [progressIndicator setHidden:NO];
+        phase = download;
+
+        [request setDelegate:self];
+        // Download synchronous since we cannot do anything
+        // while we are waiting anyway
+        [request startSynchronous];
+    }
+    return NO;
+}
+
+
+
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    // Use when fetching text data
-    NSString *responseString = [request responseString];
-    NSLog(@"Response: %@", responseString);
-    statusLabel.text = [NSString stringWithFormat:@"Uploaded: %@", responseString];
-    // Use when fetching binary data
-    NSData *responseData = [request responseData];
+    [progressIndicator setHidden:YES];
+    [recordButton setEnabled:YES];
+    if(request.responseStatusCode == 200) {
+        if (phase == upload) {
+            NSString *codeString = [request responseString];
+            NSLog(@"Response: %@", codeString);
+            statusLabel.text = @"Done!";
+            [codeTextField setText:codeString];
+            [uploadButton setEnabled:YES];
+        } else if(phase == download) {
+            [progressIndicator setHidden:YES];
+            
+            // dispose the previous playback queue
+            player->DisposeQueue(true);
+            // Create new file path (removed by DisposeQueue)
+            recordFilePath = (CFStringRef)[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
+            player->CreateQueueForFile(recordFilePath);
+            
+            // Start playing
+            [self play:self];
+            [playButton setEnabled:YES];
+        } 
+    } else {
+        // Error, should really take care of all possible error codes
+        NSLog(@"Request failed with: %d", request.responseStatusCode);
+        // Hide playbutton if download failed
+        if (phase == download) {
+            [playButton setEnabled:NO];
+        }
+    }
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
@@ -192,6 +267,9 @@
             statusLabel.text = @"Unknown error";
             break;
     }
+    [playButton setEnabled:YES];
+    [recordButton setEnabled:YES];
+    [uploadButton setEnabled:YES];
 }
 
 #pragma mark AudioSession listeners
@@ -315,6 +393,7 @@ void propListener(	void *                  inClientData,
 	
 	// disable the play button since we have no recording to play yet
 	playButton.enabled = NO;
+    uploadButton.enabled = NO;
 	playbackWasInterrupted = NO;
 	playbackWasPaused = NO;
 }
