@@ -13,6 +13,7 @@
 @interface ViewController : UIViewController {
     IBOutlet UIButton *recordButton;
     IBOutlet UIButton *playButton;
+    IBOutlet UILabel *statusLabel;
     AQPlayer*					player;
 	AQRecorder*					recorder;
     BOOL						playbackWasInterrupted;
@@ -20,14 +21,17 @@
 	
 	CFStringRef					recordFilePath;	
 }
+@property (retain, nonatomic) IBOutlet UILabel *statusLabel;
 @property (retain, nonatomic) IBOutlet UIButton *recordButton;
 @property (retain, nonatomic) IBOutlet UIButton *playButton;
+@property (retain, nonatomic) IBOutlet UIButton *uploadButton;
 @property (readonly)			AQPlayer			*player;
 @property (readonly)			AQRecorder			*recorder;
 @property						BOOL				playbackWasInterrupted;
 
 - (IBAction)play:(id)sender;
 - (IBAction)record:(id)sender;
+- (IBAction)upload:(id)sender;
 - (void)initializeAudio;
 void interruptionListener(	void *	inClientData,
                           UInt32	inInterruptionState);

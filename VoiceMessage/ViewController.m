@@ -7,10 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "ASIFormDataRequest.h"
 
 @implementation ViewController
+@synthesize statusLabel;
 @synthesize recordButton;
 @synthesize playButton;
+@synthesize uploadButton;
 @synthesize player;
 @synthesize recorder;
 @synthesize playbackWasInterrupted;
@@ -24,6 +27,9 @@
 	delete player;
 	delete recorder;
 	
+    [uploadButton release];
+    [statusLabel release];
+    [statusLabel release];
 	[super dealloc];
 }
 
@@ -45,6 +51,10 @@
 {
     [self setRecordButton:nil];
     [self setPlayButton:nil];
+    [self setUploadButton:nil];
+    [statusLabel release];
+    statusLabel = nil;
+    [self setStatusLabel:nil];
     [super viewDidUnload];
 }
 
@@ -144,6 +154,44 @@
 		// Start the recorder
 		recorder->StartRecord(CFSTR("recordedFile.caf"));
     }	
+}
+
+- (IBAction)upload:(id)sender
+{
+    NSURL *url = [NSURL URLWithString:@"http://localhost:8080/upload"];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request addFile:[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"] forKey:@"audiofile"];
+    [request setRequestMethod:@"POST"];
+    [request setDelegate:self];
+    statusLabel.text = @"Uploading...";
+    [request startAsynchronous];
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    // Use when fetching text data
+    NSString *responseString = [request responseString];
+    NSLog(@"Response: %@", responseString);
+    statusLabel.text = [NSString stringWithFormat:@"Uploaded: %@", responseString];
+    // Use when fetching binary data
+    NSData *responseData = [request responseData];
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    NSError *error = [request error];
+    NSLog(@"Error response: %d %@", [error code], 
+          [error localizedDescription]);
+    switch ([error code]) {
+        case 1:
+            // Connection failure
+            statusLabel.text = @"Connection failure";            
+            break;
+            
+        default:
+            statusLabel.text = @"Unknown error";
+            break;
+    }
 }
 
 #pragma mark AudioSession listeners
