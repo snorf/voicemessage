@@ -248,6 +248,9 @@
         // Hide playbutton if download failed
         if (phase == download) {
             [playButton setEnabled:NO];
+            [statusLabel setText:@"Invalid code"];
+        } else {
+            [statusLabel setText:@"Upload failed"];
         }
     }
 }

@@ -55,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0420FA47145CC5BE006FA273 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		046AD5AE145B509600DB64F4 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		046AD5E8145C178500DB64F4 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		046AD5EA145C179900DB64F4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -80,7 +81,6 @@
 		046AD62A145C2B5A00DB64F4 /* ASINetworkQueue.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = ASINetworkQueue.h; sourceTree = "<group>"; };
 		046AD62B145C2B5A00DB64F4 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
 		046AD62C145C2B5A00DB64F4 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
-		046AD63A145C2F3A00DB64F4 /* Reachability.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = Reachability.h; sourceTree = "<group>"; };
 		046AD63B145C2F3A00DB64F4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		046AD643145C319200DB64F4 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		046AD645145C59EE00DB64F4 /* AQPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQPlayer.h; sourceTree = "<group>"; };
@@ -149,14 +149,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04EF5EA4145B3C050075FD4F = {
+		043C9070145CC505003FE9F0 /* ASIHTTPRequest */ = {
 			isa = PBXGroup;
 			children = (
-				046AD6A3145C9E4100DB64F4 /* megaphone.png */,
-				046AD6A4145C9E4100DB64F4 /* megaphone@2x.png */,
-				046AD643145C319200DB64F4 /* libxml2.dylib */,
-				046AD63A145C2F3A00DB64F4 /* Reachability.h */,
-				046AD63B145C2F3A00DB64F4 /* Reachability.m */,
 				046AD619145C2B5A00DB64F4 /* ASIAuthenticationDialog.h */,
 				046AD61A145C2B5A00DB64F4 /* ASIAuthenticationDialog.m */,
 				046AD61B145C2B5A00DB64F4 /* ASICacheDelegate.h */,
@@ -177,6 +172,26 @@
 				046AD62A145C2B5A00DB64F4 /* ASINetworkQueue.h */,
 				046AD62B145C2B5A00DB64F4 /* ASINetworkQueue.m */,
 				046AD62C145C2B5A00DB64F4 /* ASIProgressDelegate.h */,
+				0420FA47145CC5BE006FA273 /* Reachability.h */,
+				046AD63B145C2F3A00DB64F4 /* Reachability.m */,
+			);
+			name = ASIHTTPRequest;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		04938759145CC54D0024E5E3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				046AD6A3145C9E4100DB64F4 /* megaphone.png */,
+				046AD6A4145C9E4100DB64F4 /* megaphone@2x.png */,
+			);
+			name = Resources;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		04EF5EA4145B3C050075FD4F = {
+			isa = PBXGroup;
+			children = (
 				04EF5EB9145B3C050075FD4F /* VoiceMessage */,
 				04EF5EDA145B3C050075FD4F /* VoiceMessageTests */,
 				04EF5EB2145B3C050075FD4F /* Frameworks */,
@@ -197,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				046AD615145C2A2B00DB64F4 /* libz.dylib */,
+				046AD643145C319200DB64F4 /* libxml2.dylib */,
 				046AD5EC145C17A200DB64F4 /* MobileCoreServices.framework */,
 				046AD5EA145C179900DB64F4 /* SystemConfiguration.framework */,
 				046AD5E8145C178500DB64F4 /* CFNetwork.framework */,
@@ -214,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				04EF5F02145B453D0075FD4F /* Play & Record */,
+				04938759145CC54D0024E5E3 /* Resources */,
 				04EF5EC2145B3C050075FD4F /* AppDelegate.h */,
 				04EF5EC3145B3C050075FD4F /* AppDelegate.m */,
 				04EF5EC5145B3C050075FD4F /* ViewController.h */,
@@ -228,6 +245,7 @@
 		04EF5EBA145B3C050075FD4F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				043C9070145CC505003FE9F0 /* ASIHTTPRequest */,
 				04EF5EEB145B3C2C0075FD4F /* IPublicUtility */,
 				04EF5EBB145B3C050075FD4F /* VoiceMessage-Info.plist */,
 				04EF5EBC145B3C050075FD4F /* InfoPlist.strings */,
