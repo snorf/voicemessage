@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04EF5EAE145B3C050075FD4F"
-               BuildableName = "voicemessage.app"
+               BuildableName = "VoiceMessage.app"
                BlueprintName = "VoiceMessage"
                ReferencedContainer = "container:VoiceMessage.xcodeproj">
             </BuildableReference>
@@ -31,7 +31,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04EF5ED2145B3C050075FD4F"
+               BlueprintIdentifier = "0402893C145DD33700A053C3"
                BuildableName = "VoiceMessageTests.octest"
                BlueprintName = "VoiceMessageTests"
                ReferencedContainer = "container:VoiceMessage.xcodeproj">
@@ -42,7 +42,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04EF5EAE145B3C050075FD4F"
-            BuildableName = "voicemessage.app"
+            BuildableName = "VoiceMessage.app"
             BlueprintName = "VoiceMessage"
             ReferencedContainer = "container:VoiceMessage.xcodeproj">
          </BuildableReference>
@@ -60,7 +60,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04EF5EAE145B3C050075FD4F"
-            BuildableName = "voicemessage.app"
+            BuildableName = "VoiceMessage.app"
             BlueprintName = "VoiceMessage"
             ReferencedContainer = "container:VoiceMessage.xcodeproj">
          </BuildableReference>
@@ -78,7 +78,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04EF5EAE145B3C050075FD4F"
-            BuildableName = "voicemessage.app"
+            BuildableName = "VoiceMessage.app"
             BlueprintName = "VoiceMessage"
             ReferencedContainer = "container:VoiceMessage.xcodeproj">
          </BuildableReference>

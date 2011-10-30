@@ -1,28 +1,17 @@
 //
-//  VoiceMessageTests.m
-//  VoiceMessageTests
+//  DelegateTests.m
+//  VoiceMessage
 //
 //  Created by Johan Karlsteen on 2011-10-30.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "VoiceMessageTests.h"
+#import "DelegateTests.h"
 
-@implementation VoiceMessageTests
+#import <UIKit/UIKit.h>
+//#import "application_headers" as required
 
-- (void)setUp
-{
-    [super setUp];
-    
-    // Set-up code here.
-}
-
-- (void)tearDown
-{
-    // Tear-down code here.
-    
-    [super tearDown];
-}
+@implementation DelegateTests
 
 // All code under test is in the iOS Application
 - (void)testAppDelegate
