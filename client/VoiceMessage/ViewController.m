@@ -24,6 +24,13 @@
 // Which VoiceMessageServer should we use (http://localhost:8080 if we debug GAE)
 NSString *MESSAGESERVER = @"http://voicemessageserver.appspot.com";
 NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
+NSString *currentCode;
+bool sharingIsPossible = NO;
+bool uploadIsPossible = NO;
+enum {
+    upload = 0,
+    download
+};
 
 #pragma mark Cleanup
 - (void)dealloc
@@ -98,15 +105,21 @@ NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"r
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Only portrait
-    return NO;
+    if (interfaceOrientation == UIDeviceOrientationPortrait) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 #pragma mark Playback routines
-
 -(void)stopPlayQueue
 {
 	player->StopQueue();
-	recordButton.enabled = YES;
+	[recordButton setEnabled:YES];
+    [shareButton setEnabled:sharingIsPossible];
+    [codeTextField setEnabled:YES];
+    [uploadButton setEnabled:uploadIsPossible];
 }
 
 -(void)pausePlayQueue
@@ -128,9 +141,12 @@ NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"r
 	player->CreateQueueForFile(recordFilePath);
     
 	// Set the button's state back to "record"
-	[recordButton setTitle:@"Record"];
-	playButton.enabled = YES;
-    uploadButton.enabled = YES;
+	[recordButton setTitle:@"1. Record"];
+	[playButton setEnabled:YES];
+    uploadIsPossible = YES;
+    [uploadButton setEnabled:YES];
+    sharingIsPossible = NO;
+    [codeTextField setEnabled:YES];
 }
 
 - (IBAction)play:(id)sender
@@ -161,8 +177,10 @@ NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"r
 	}
 	else // If we're not recording, start.
 	{
-		playButton.enabled = NO;
-        uploadButton.enabled = NO;
+		[playButton setEnabled:NO];
+        [uploadButton setEnabled:NO];
+        [codeTextField setEnabled:NO];
+        [shareButton setEnabled:NO];
 		
 		// Set the button's state to "stop"
 		[recordButton setTitle:@"Stop"];
@@ -172,91 +190,113 @@ NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"r
     }	
 }
 
+// Disable all gui components
+- (void) disableGui {
+    [playButton setEnabled:NO];
+    [recordButton setEnabled:NO];
+    [uploadButton setEnabled:NO];
+    [codeTextField setEnabled:NO];
+    [shareButton setEnabled:NO];
+}
+
+/*
+ * Uploads the last recorded audiofile to the server
+ */
 - (IBAction)upload:(id)sender
 {
+    [self disableGui];
+    [statusLabel setText:@"Uploading..."];
+
+    // Create the request
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload", MESSAGESERVER]];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addFile:filePath forKey:@"audiofile"];
     [request setRequestMethod:@"POST"];
+    [request setUploadProgressDelegate:progressIndicator];
     [request setDelegate:self];
+
+    // Show and reset progress indicator
     [progressIndicator setProgress:0.0];
     [progressIndicator setHidden:NO];
-    [request setUploadProgressDelegate:progressIndicator];
-    NSLog(@"Uploading: %@", filePath);
-    statusLabel.text = @"Uploading...";
     phase = upload;
+    
+    NSLog(@"Uploading: %@", filePath);
     [request startAsynchronous];
 }
 
-- (IBAction)share:(id)sender {
-    MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
-    controller.mailComposeDelegate = self;
-    [controller setSubject:@"You've got a VoiceMessage!"];
-    NSString *message = [NSString stringWithFormat:@"Hi, I have recorded a VoiceMessage for you.\r\n\r\nYou can listen to it by having VoiceMessage installed and clicking this link: voicemessage://%@", codeTextField.text];
-    [controller setMessageBody:message isHTML:NO]; 
-    if (controller) [self presentModalViewController:controller animated:YES];
-    [controller release];
-}
-
-- (void)mailComposeController:(MFMailComposeViewController*)controller  
-          didFinishWithResult:(MFMailComposeResult)result 
-                        error:(NSError*)error;
-{
-    if (result == MFMailComposeResultSent) {
-        NSLog(@"It's away!");
-        statusLabel.text = @"VoiceMessage sent!";
-    }
-    [self dismissModalViewControllerAnimated:YES];
-}
-
+/* Delegate that will try to download a voice message when the user 
+ * presses Done on the keyboard for the codeTextField
+ */
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     // We have only one textfield so we don't need to see who it is
     [textField resignFirstResponder];
-
-    // Only try to download if there is something in the textfield that is 21 characters long
-    if (textField.text.length == 21) {
-        [self listenToVoiceMessageWithId:codeTextField.text];
+    
+    // Only try to download if there is something in the textfield that is 21 (kHashTagLength) characters long
+    if (textField.text.length == kHashTagLength) {
+        [self downloadToVoiceMessageWithId:codeTextField.text];
     }
     return NO;
 }
 
-- (void)listenToVoiceMessageWithId:(NSString*)voiceMessageId {
+#pragma mark http routines
+/*
+ * Used by both the AppDelegate when the user clicks a voicemessage:// link
+ * and the UITextFieldDelegate method (textFieldShouldReturn)
+ */
+- (void)downloadToVoiceMessageWithId:(NSString*)voiceMessageId {
+    [self disableGui];
+    [statusLabel setText:@"Downloading..."];
+
+    // Create the request
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/audio/%@", MESSAGESERVER, voiceMessageId]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setDownloadDestinationPath:filePath];
-    [playButton setEnabled:NO];
-    [recordButton setEnabled:NO];
-    [uploadButton setEnabled:NO];
-    [progressIndicator setProgress:0.0];
     [request setDownloadProgressDelegate:progressIndicator];
-    NSLog(@"Downloading: %@ to: %@", [url absoluteString], filePath);
+    [request setDelegate:self];
     
+    // Show and reset progress indicator
+    [progressIndicator setProgress:0.0];
     [progressIndicator setHidden:NO];
     phase = download;
     
-    [request setDelegate:self];
     // Download synchronous since we cannot do anything
     // while we are waiting anyway
+    NSLog(@"Downloading: %@ to: %@", [url absoluteString], filePath);
     [request startSynchronous];
     
 }
 
+
+/*
+ * Called when ASIHTTPRequest has finished communicating
+ * phase tells the application if it was upload or download
+ */
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     [progressIndicator setHidden:YES];
     [recordButton setEnabled:YES];
+
+    // Only process status 200 (everything is ok)
     if(request.responseStatusCode == 200) {
-        [shareButton setEnabled:YES];
+        [statusLabel setText:@"Done!"];
+
+        // Enable some buttons
+        sharingIsPossible = YES;
+        [shareButton setEnabled:sharingIsPossible];
+        [playButton setEnabled:YES];
+        
+        // After a successful up-/download we don't want to upload again
+        uploadIsPossible = NO;
+
         if (phase == upload) {
             NSString *codeString = [request responseString];
-            NSLog(@"Response: %@", codeString);
-            statusLabel.text = @"Done!";
+            currentCode = codeString;
+            NSLog(@"Code: %@", codeString);
+            
             [codeTextField setText:codeString];
-            uploadedCodeReceived = codeString;
-            [uploadButton setEnabled:YES];
         } else if(phase == download) {
-            uploadedCodeReceived = codeTextField.text;
-
+            currentCode = codeTextField.text;
+            
             // dispose the previous playback queue and create a new one for the downloaded file
             player->DisposeQueue(true);
             recordFilePath = (CFStringRef)filePath;
@@ -264,7 +304,6 @@ NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"r
             
             // Start playing
             [self play:self];
-            [playButton setEnabled:YES];
         } 
     } else {
         // Error, should really take care of all possible error codes
@@ -279,6 +318,11 @@ NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"r
     }
 }
 
+/*
+ * Called when a request to the server failed.
+ * Should have more error code cases for different
+ * errors (Radio off, server cannot be reached etc).
+ */
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
     NSError *error = [request error];
@@ -287,11 +331,11 @@ NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"r
     switch ([error code]) {
         case 1:
             // Connection failure
-            statusLabel.text = @"Connection failure";            
+            [statusLabel setText:@"Connection failure"];            
             break;
             
         default:
-            statusLabel.text = @"Unknown error";
+            [statusLabel setText:@"Unknown error"];
             break;
     }
     [playButton setEnabled:YES];
@@ -300,7 +344,39 @@ NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"r
     [progressIndicator setHidden:YES];
 }
 
+#pragma mark Mail sharing
+/*
+ * Opens a new mail where the user can send a VoiceMessage code to someone
+ */
+- (IBAction)share:(id)sender {
+    MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
+    controller.mailComposeDelegate = self;
+    [controller setSubject:@"You've got a VoiceMessage!"];
+    NSString *message = [NSString stringWithFormat:@"Hi, I have recorded a VoiceMessage for you.\r\n\r\nYou can listen to it by having VoiceMessage installed and clicking this link: voicemessage://%@", codeTextField.text];
+    [controller setMessageBody:message isHTML:NO]; 
+    if (controller) [self presentModalViewController:controller animated:YES];
+    [controller release];
+}
+
+/*
+ * Delegate that is run when the mail view exits
+ */
+- (void)mailComposeController:(MFMailComposeViewController*)controller  
+          didFinishWithResult:(MFMailComposeResult)result 
+                        error:(NSError*)error;
+{
+    if (result == MFMailComposeResultSent) {
+        [statusLabel setText:@"VoiceMessage sent!"];
+    }
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 #pragma mark AudioSession listeners
+/*
+ * The rest of the code is copied from the example project SpeakHere
+ * http://developer.apple.com/library/ios/#samplecode/SpeakHere/Introduction/Intro.html
+ * with some minor changes
+ */
 void interruptionListener(	void *	inClientData,
                           UInt32	inInterruptionState)
 {
@@ -339,26 +415,7 @@ void propListener(	void *                  inClientData,
 		SInt32 reasonVal;
 		CFNumberGetValue(reason, kCFNumberSInt32Type, &reasonVal);
 		if (reasonVal != kAudioSessionRouteChangeReason_CategoryChange)
-		{
-			/*CFStringRef oldRoute = (CFStringRef)CFDictionaryGetValue(routeDictionary, CFSTR(kAudioSession_AudioRouteChangeKey_OldRoute));
-             if (oldRoute)	
-             {
-             printf("old route:\n");
-             CFShow(oldRoute);
-             }
-             else 
-             printf("ERROR GETTING OLD AUDIO ROUTE!\n");
-             
-             CFStringRef newRoute;
-             UInt32 size; size = sizeof(CFStringRef);
-             OSStatus error = AudioSessionGetProperty(kAudioSessionProperty_AudioRoute, &size, &newRoute);
-             if (error) printf("ERROR GETTING NEW AUDIO ROUTE! %d\n", error);
-             else
-             {
-             printf("new route:\n");
-             CFShow(newRoute);
-             }*/
-            
+		{            
 			if (reasonVal == kAudioSessionRouteChangeReason_OldDeviceUnavailable)
 			{			
 				if (THIS->player->IsRunning()) {
@@ -420,8 +477,8 @@ void propListener(	void *                  inClientData,
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueResumed:) name:@"playbackQueueResumed" object:nil];
 	
 	// disable the play button since we have no recording to play yet
-	playButton.enabled = NO;
-    uploadButton.enabled = NO;
+	[playButton setEnabled:NO];
+    [uploadButton setEnabled:NO];
 	playbackWasInterrupted = NO;
 	playbackWasPaused = NO;
 }
@@ -429,13 +486,19 @@ void propListener(	void *                  inClientData,
 # pragma mark Notification routines
 - (void)playbackQueueStopped:(NSNotification *)note
 {
-	[playButton setTitle:@"Play" forState:UIControlStateNormal];
-	recordButton.enabled = YES;
+	[playButton setTitle:@"2. Play" forState:UIControlStateNormal];
+	[recordButton setEnabled:YES];
+    [shareButton setEnabled:sharingIsPossible];
+    [codeTextField setEnabled:YES];
+    [uploadButton setEnabled:uploadIsPossible];
 }
 
 - (void)playbackQueueResumed:(NSNotification *)note
 {
 	[playButton setTitle:@"Stop" forState:UIControlStateNormal];
-	recordButton.enabled = NO;
+	[recordButton setEnabled:NO];
+    [shareButton setEnabled:NO];
+    [codeTextField setEnabled:NO];
+    [uploadButton setEnabled:NO];
 }
 @end

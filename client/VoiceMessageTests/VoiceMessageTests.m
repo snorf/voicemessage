@@ -13,22 +13,24 @@
 - (void)setUp
 {
     [super setUp];
-    
-    // Set-up code here.
+    yourApplicationDelegate = [[UIApplication sharedApplication] delegate];
+    viewController = [yourApplicationDelegate viewController];
+    view = [viewController view];
 }
 
-- (void)tearDown
-{
-    // Tear-down code here.
-    
-    [super tearDown];
-}
-
-// All code under test is in the iOS Application
 - (void)testAppDelegate
 {
-    id yourApplicationDelegate = [[UIApplication sharedApplication] delegate];
     STAssertNotNil(yourApplicationDelegate, @"UIApplication failed to find the AppDelegate");
+}
+
+- (void)testViewController
+{
+    STAssertNotNil(viewController, @"UIApplication failed to find the View Controller");
+}
+
+- (void)testView
+{
+    STAssertNotNil(view, @"UIApplication failed to find the View");
 }
 
 @end

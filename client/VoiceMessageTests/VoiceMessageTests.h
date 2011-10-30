@@ -8,7 +8,13 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+#import "ViewController.h"
 
-@interface VoiceMessageTests : SenTestCase
+@interface VoiceMessageTests : SenTestCase {
+    AppDelegate     *yourApplicationDelegate;
+    ViewController  *viewController;
+    UIView          *view;
+}
 
 @end

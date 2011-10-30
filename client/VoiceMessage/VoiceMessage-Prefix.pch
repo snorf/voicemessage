@@ -14,3 +14,4 @@
 #endif
 
 #define kBufferDurationSeconds .5
+#define kHashTagLength 21

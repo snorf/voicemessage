@@ -25,13 +25,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
     self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil] autorelease];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;
 }
 
+/*
+ * Handles clicks on voicemessage://-links
+ * if the url-host is exactly 21 characters long
+ * the view will try to download that message
+ */
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {       
     if (!url) {
@@ -40,9 +44,9 @@
     }
     
     NSString *voiceMessageCode = [url host];
-    if (voiceMessageCode.length == 21) {
+    if (voiceMessageCode.length == kHashTagLength) {
         [[self.viewController codeTextField] setText:voiceMessageCode];
-        [self.viewController listenToVoiceMessageWithId:voiceMessageCode];
+        [self.viewController downloadToVoiceMessageWithId:voiceMessageCode];
     } else {
         [[self.viewController statusLabel] setText:@"Invalid code"];
     }

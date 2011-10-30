@@ -12,23 +12,12 @@
 #import "AQRecorder.h"
 
 @interface ViewController : UIViewController<UITextFieldDelegate, MFMailComposeViewControllerDelegate> {
-    IBOutlet UIBarButtonItem *recordButton;
-    IBOutlet UIButton *playButton;
-    IBOutlet UIBarButtonItem *uploadButton;
-    IBOutlet UILabel *statusLabel;
-    IBOutlet UITextField *codeTextField;
-    IBOutlet UIButton *shareButton;
     AQPlayer*					player;
 	AQRecorder*					recorder;
     BOOL						playbackWasInterrupted;
 	BOOL						playbackWasPaused;
     NSInteger                   phase;
-	enum {
-        upload = 0,
-        download
-    };
-	CFStringRef	recordFilePath;
-    NSString *uploadedCodeReceived;
+	CFStringRef                 recordFilePath;
 }
 @property (retain, nonatomic) IBOutlet UILabel *statusLabel;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *recordButton;
@@ -41,12 +30,17 @@
 @property (readonly)			AQRecorder			*recorder;
 @property						BOOL				playbackWasInterrupted;
 
+// IBActions
 - (IBAction)play:(id)sender;
 - (IBAction)record:(id)sender;
 - (IBAction)upload:(id)sender;
 - (IBAction)share:(id)sender;
+
+// Helper method to initialize audio (borrowed from SpeakHere)
 - (void)initializeAudio;
-- (void)listenToVoiceMessageWithId:(NSString*)voiceMessageId;
+
+- (void)downloadToVoiceMessageWithId:(NSString*)voiceMessageId;
+
 void interruptionListener(	void *	inClientData,
                           UInt32	inInterruptionState);
 void propListener(	void *                  inClientData,
