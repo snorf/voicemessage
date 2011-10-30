@@ -16,25 +16,30 @@
 @synthesize uploadButton;
 @synthesize progressIndicator;
 @synthesize codeTextField;
+@synthesize shareButton;
 @synthesize player;
 @synthesize recorder;
 @synthesize playbackWasInterrupted;
 
+// Which VoiceMessageServer should we use (http://localhost:8080 if we debug GAE)
+NSString *MESSAGESERVER = @"http://voicemessageserver.appspot.com";
+NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
+
 #pragma mark Cleanup
 - (void)dealloc
 {
-	[recordButton release];
-	[playButton release];
-	
 	delete player;
 	delete recorder;
-	
+	[recordButton release];
+	[playButton release];
     [uploadButton release];
     [statusLabel release];
     [statusLabel release];
     [progressIndicator release];
     [codeTextField release];
     [codeTextField release];
+    [shareButton release];
+    [shareButton release];
 	[super dealloc];
 }
 
@@ -49,9 +54,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if(self) {
-        self.title = @"VoiceMessage";
-    }
     [self initializeAudio];
 }
 
@@ -67,6 +69,9 @@
     [codeTextField release];
     codeTextField = nil;
     [self setCodeTextField:nil];
+    [shareButton release];
+    shareButton = nil;
+    [self setShareButton:nil];
     [super viewDidUnload];
 }
 
@@ -92,12 +97,8 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return YES;
-    }
+    // Only portrait
+    return NO;
 }
 
 #pragma mark Playback routines
@@ -122,7 +123,7 @@
 	player->DisposeQueue(true);
     
 	// now create a new queue for the recorded file
-	recordFilePath = (CFStringRef)[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
+	recordFilePath = (CFStringRef)filePath;
     
 	player->CreateQueueForFile(recordFilePath);
     
@@ -173,8 +174,7 @@
 
 - (IBAction)upload:(id)sender
 {
-    NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8080/upload"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload", MESSAGESERVER]];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addFile:filePath forKey:@"audiofile"];
     [request setRequestMethod:@"POST"];
@@ -188,54 +188,78 @@
     [request startAsynchronous];
 }
 
+- (IBAction)share:(id)sender {
+    MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
+    controller.mailComposeDelegate = self;
+    [controller setSubject:@"You've got a VoiceMessage!"];
+    NSString *message = [NSString stringWithFormat:@"Hi, I have recorded a VoiceMessage for you.\r\n\r\nYou can listen to it by having VoiceMessage installed and clicking this link: voicemessage://%@", codeTextField.text];
+    [controller setMessageBody:message isHTML:NO]; 
+    if (controller) [self presentModalViewController:controller animated:YES];
+    [controller release];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller  
+          didFinishWithResult:(MFMailComposeResult)result 
+                        error:(NSError*)error;
+{
+    if (result == MFMailComposeResultSent) {
+        NSLog(@"It's away!");
+        statusLabel.text = @"VoiceMessage sent!";
+    }
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     // We have only one textfield so we don't need to see who it is
     [textField resignFirstResponder];
 
     // Only try to download if there is something in the textfield that is 21 characters long
     if (textField.text.length == 21) {
-        NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:8080/audio/%@", codeTextField.text]];
-        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-        [request setDownloadDestinationPath:filePath];
-        [playButton setEnabled:NO];
-        [recordButton setEnabled:NO];
-        [uploadButton setEnabled:NO];
-        [progressIndicator setProgress:0.0];
-        [request setDownloadProgressDelegate:progressIndicator];
-        NSLog(@"Downloading: %@ to: %@", [url absoluteString], filePath);
-        
-        [progressIndicator setHidden:NO];
-        phase = download;
-
-        [request setDelegate:self];
-        // Download synchronous since we cannot do anything
-        // while we are waiting anyway
-        [request startSynchronous];
+        [self listenToVoiceMessageWithId:codeTextField.text];
     }
     return NO;
 }
 
-
+- (void)listenToVoiceMessageWithId:(NSString*)voiceMessageId {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/audio/%@", MESSAGESERVER, voiceMessageId]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setDownloadDestinationPath:filePath];
+    [playButton setEnabled:NO];
+    [recordButton setEnabled:NO];
+    [uploadButton setEnabled:NO];
+    [progressIndicator setProgress:0.0];
+    [request setDownloadProgressDelegate:progressIndicator];
+    NSLog(@"Downloading: %@ to: %@", [url absoluteString], filePath);
+    
+    [progressIndicator setHidden:NO];
+    phase = download;
+    
+    [request setDelegate:self];
+    // Download synchronous since we cannot do anything
+    // while we are waiting anyway
+    [request startSynchronous];
+    
+}
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     [progressIndicator setHidden:YES];
     [recordButton setEnabled:YES];
     if(request.responseStatusCode == 200) {
+        [shareButton setEnabled:YES];
         if (phase == upload) {
             NSString *codeString = [request responseString];
             NSLog(@"Response: %@", codeString);
             statusLabel.text = @"Done!";
             [codeTextField setText:codeString];
+            uploadedCodeReceived = codeString;
             [uploadButton setEnabled:YES];
         } else if(phase == download) {
-            [progressIndicator setHidden:YES];
-            
-            // dispose the previous playback queue
+            uploadedCodeReceived = codeTextField.text;
+
+            // dispose the previous playback queue and create a new one for the downloaded file
             player->DisposeQueue(true);
-            // Create new file path (removed by DisposeQueue)
-            recordFilePath = (CFStringRef)[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
+            recordFilePath = (CFStringRef)filePath;
             player->CreateQueueForFile(recordFilePath);
             
             // Start playing
@@ -273,6 +297,7 @@
     [playButton setEnabled:YES];
     [recordButton setEnabled:YES];
     [uploadButton setEnabled:YES];
+    [progressIndicator setHidden:YES];
 }
 
 #pragma mark AudioSession listeners

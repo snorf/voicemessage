@@ -116,7 +116,6 @@
 								<string key="NSFrame">{{101, 18}, {142, 9}}</string>
 								<reference key="NSSuperview" ref="786882461"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:677</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -262,6 +261,7 @@
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<bool key="IBUIEnabled">NO</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">2</int>
@@ -372,6 +372,14 @@
 					<int key="connectionID">45</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">shareButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="946930610"/>
+					</object>
+					<int key="connectionID">65</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">record:</string>
 						<reference key="source" ref="72726866"/>
@@ -403,6 +411,15 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">56</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">share:</string>
+						<reference key="source" ref="946930610"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">66</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -557,7 +574,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">63</int>
+			<int key="maxID">66</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -567,6 +584,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="play:">id</string>
 						<string key="record:">id</string>
+						<string key="share:">id</string>
 						<string key="upload:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -576,6 +594,10 @@
 						</object>
 						<object class="IBActionInfo" key="record:">
 							<string key="name">record:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="share:">
+							<string key="name">share:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="upload:">
@@ -588,6 +610,7 @@
 						<string key="playButton">UIButton</string>
 						<string key="progressIndicator">UIProgressView</string>
 						<string key="recordButton">UIBarButtonItem</string>
+						<string key="shareButton">UIButton</string>
 						<string key="statusLabel">UILabel</string>
 						<string key="uploadButton">UIBarButtonItem</string>
 					</dictionary>
@@ -607,6 +630,10 @@
 						<object class="IBToOneOutletInfo" key="recordButton">
 							<string key="name">recordButton</string>
 							<string key="candidateClassName">UIBarButtonItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="shareButton">
+							<string key="name">shareButton</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="statusLabel">
 							<string key="name">statusLabel</string>

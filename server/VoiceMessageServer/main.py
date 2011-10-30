@@ -28,6 +28,7 @@ class VoiceMessage(db.Model):
   audiofile = db.BlobProperty(default=None)
   contentType = db.StringProperty()
   etag = db.StringProperty()
+  insert_time = db.DateTimeProperty(auto_now_add=True)
 
 def getVoiceMessage(etag, code=None):
   result = db.GqlQuery("SELECT * FROM VoiceMessage WHERE etag = :1 LIMIT 1",etag).fetch(1)

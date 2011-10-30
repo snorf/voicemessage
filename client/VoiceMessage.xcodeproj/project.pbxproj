@@ -26,6 +26,12 @@
 		046AD64A145C59EE00DB64F4 /* AQRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 046AD648145C59EE00DB64F4 /* AQRecorder.m */; };
 		046AD6A5145C9E4100DB64F4 /* megaphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 046AD6A3145C9E4100DB64F4 /* megaphone.png */; };
 		046AD6A6145C9E4100DB64F4 /* megaphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046AD6A4145C9E4100DB64F4 /* megaphone@2x.png */; };
+		04AA04EE145DA049006F3CAC /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AA04EB145DA049006F3CAC /* Icon.png */; };
+		04AA04EF145DA049006F3CAC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AA04EC145DA049006F3CAC /* Icon@2x.png */; };
+		04AA04F0145DA049006F3CAC /* ItunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 04AA04ED145DA049006F3CAC /* ItunesArtwork */; };
+		04AA04F2145DA060006F3CAC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AA04F1145DA060006F3CAC /* Default.png */; };
+		04AA04F4145DA064006F3CAC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AA04F3145DA064006F3CAC /* Default@2x.png */; };
+		04AA04FA145DA216006F3CAC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AA04F9145DA216006F3CAC /* MessageUI.framework */; };
 		04EF5EB4145B3C050075FD4F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EB3145B3C050075FD4F /* UIKit.framework */; };
 		04EF5EB6145B3C050075FD4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EB5145B3C050075FD4F /* Foundation.framework */; };
 		04EF5EB8145B3C050075FD4F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EB7145B3C050075FD4F /* CoreGraphics.framework */; };
@@ -34,7 +40,6 @@
 		04EF5EC4145B3C050075FD4F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EC3145B3C050075FD4F /* AppDelegate.m */; };
 		04EF5EC7145B3C050075FD4F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF5EC6145B3C050075FD4F /* ViewController.m */; };
 		04EF5ECA145B3C050075FD4F /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EF5EC8145B3C050075FD4F /* ViewController_iPhone.xib */; };
-		04EF5ECD145B3C050075FD4F /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EF5ECB145B3C050075FD4F /* ViewController_iPad.xib */; };
 		04EF5ED5145B3C050075FD4F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5ED4145B3C050075FD4F /* SenTestingKit.framework */; };
 		04EF5ED6145B3C050075FD4F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EB3145B3C050075FD4F /* UIKit.framework */; };
 		04EF5ED7145B3C050075FD4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EF5EB5145B3C050075FD4F /* Foundation.framework */; };
@@ -89,7 +94,13 @@
 		046AD648145C59EE00DB64F4 /* AQRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQRecorder.m; sourceTree = "<group>"; };
 		046AD6A3145C9E4100DB64F4 /* megaphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = megaphone.png; sourceTree = "<group>"; };
 		046AD6A4145C9E4100DB64F4 /* megaphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "megaphone@2x.png"; sourceTree = "<group>"; };
-		04EF5EAF145B3C050075FD4F /* VoiceMessage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceMessage.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04AA04EB145DA049006F3CAC /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		04AA04EC145DA049006F3CAC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		04AA04ED145DA049006F3CAC /* ItunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = ItunesArtwork; sourceTree = "<group>"; };
+		04AA04F1145DA060006F3CAC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		04AA04F3145DA064006F3CAC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		04AA04F9145DA216006F3CAC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		04EF5EAF145B3C050075FD4F /* voicemessage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = voicemessage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04EF5EB3145B3C050075FD4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04EF5EB5145B3C050075FD4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		04EF5EB7145B3C050075FD4F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -102,7 +113,6 @@
 		04EF5EC5145B3C050075FD4F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		04EF5EC6145B3C050075FD4F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		04EF5EC9145B3C050075FD4F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
-		04EF5ECC145B3C050075FD4F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		04EF5ED3145B3C050075FD4F /* VoiceMessageTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceMessageTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04EF5ED4145B3C050075FD4F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		04EF5EDC145B3C050075FD4F /* VoiceMessageTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VoiceMessageTests-Info.plist"; sourceTree = "<group>"; };
@@ -123,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04AA04FA145DA216006F3CAC /* MessageUI.framework in Frameworks */,
 				046AD644145C319200DB64F4 /* libxml2.dylib in Frameworks */,
 				04EF5EFB145B43C50075FD4F /* AudioToolbox.framework in Frameworks */,
 				046AD5ED145C17A200DB64F4 /* MobileCoreServices.framework in Frameworks */,
@@ -182,6 +193,11 @@
 		04938759145CC54D0024E5E3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				04AA04F3145DA064006F3CAC /* Default@2x.png */,
+				04AA04F1145DA060006F3CAC /* Default.png */,
+				04AA04EB145DA049006F3CAC /* Icon.png */,
+				04AA04EC145DA049006F3CAC /* Icon@2x.png */,
+				04AA04ED145DA049006F3CAC /* ItunesArtwork */,
 				046AD6A3145C9E4100DB64F4 /* megaphone.png */,
 				046AD6A4145C9E4100DB64F4 /* megaphone@2x.png */,
 			);
@@ -192,6 +208,7 @@
 		04EF5EA4145B3C050075FD4F = {
 			isa = PBXGroup;
 			children = (
+				04AA04F9145DA216006F3CAC /* MessageUI.framework */,
 				04EF5EB9145B3C050075FD4F /* VoiceMessage */,
 				04EF5EDA145B3C050075FD4F /* VoiceMessageTests */,
 				04EF5EB2145B3C050075FD4F /* Frameworks */,
@@ -202,7 +219,7 @@
 		04EF5EB0145B3C050075FD4F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				04EF5EAF145B3C050075FD4F /* VoiceMessage.app */,
+				04EF5EAF145B3C050075FD4F /* voicemessage.app */,
 				04EF5ED3145B3C050075FD4F /* VoiceMessageTests.octest */,
 			);
 			name = Products;
@@ -236,7 +253,6 @@
 				04EF5EC5145B3C050075FD4F /* ViewController.h */,
 				04EF5EC6145B3C050075FD4F /* ViewController.m */,
 				04EF5EC8145B3C050075FD4F /* ViewController_iPhone.xib */,
-				04EF5ECB145B3C050075FD4F /* ViewController_iPad.xib */,
 				04EF5EBA145B3C050075FD4F /* Supporting Files */,
 			);
 			path = VoiceMessage;
@@ -315,7 +331,7 @@
 			);
 			name = VoiceMessage;
 			productName = VoiceMessage;
-			productReference = 04EF5EAF145B3C050075FD4F /* VoiceMessage.app */;
+			productReference = 04EF5EAF145B3C050075FD4F /* voicemessage.app */;
 			productType = "com.apple.product-type.application";
 		};
 		04EF5ED2145B3C050075FD4F /* VoiceMessageTests */ = {
@@ -370,9 +386,13 @@
 			files = (
 				04EF5EBE145B3C050075FD4F /* InfoPlist.strings in Resources */,
 				04EF5ECA145B3C050075FD4F /* ViewController_iPhone.xib in Resources */,
-				04EF5ECD145B3C050075FD4F /* ViewController_iPad.xib in Resources */,
 				046AD6A5145C9E4100DB64F4 /* megaphone.png in Resources */,
 				046AD6A6145C9E4100DB64F4 /* megaphone@2x.png in Resources */,
+				04AA04EE145DA049006F3CAC /* Icon.png in Resources */,
+				04AA04EF145DA049006F3CAC /* Icon@2x.png in Resources */,
+				04AA04F0145DA049006F3CAC /* ItunesArtwork in Resources */,
+				04AA04F2145DA060006F3CAC /* Default.png in Resources */,
+				04AA04F4145DA064006F3CAC /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,14 +480,6 @@
 			name = ViewController_iPhone.xib;
 			sourceTree = "<group>";
 		};
-		04EF5ECB145B3C050075FD4F /* ViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				04EF5ECC145B3C050075FD4F /* en */,
-			);
-			name = ViewController_iPad.xib;
-			sourceTree = "<group>";
-		};
 		04EF5EDD145B3C050075FD4F /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -503,7 +515,7 @@
 					"-x",
 					"objective-c++",
 				);
-				SDKROOT = iphoneos4.2;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -526,7 +538,7 @@
 					"-x",
 					"objective-c++",
 				);
-				SDKROOT = iphoneos4.2;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -535,13 +547,16 @@
 		04EF5EE6145B3C050075FD4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Johan Karlsteen (L4NDK9NR36)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VoiceMessage/VoiceMessage-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "VoiceMessage/VoiceMessage-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = voicemessage;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "37B58BB0-977E-4707-9546-979AFEDF1DC8";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -553,9 +568,10 @@
 				GCC_PREFIX_HEADER = "VoiceMessage/VoiceMessage-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "VoiceMessage/VoiceMessage-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = voicemessage;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

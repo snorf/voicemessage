@@ -26,15 +26,29 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil] autorelease];
-    } else {
-        self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPad" bundle:nil] autorelease];
-    }
+    self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil] autorelease];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{       
+    if (!url) {
+        // The URL is nil. There's nothing more to do.
+        return NO;
+    }
+    
+    NSString *voiceMessageCode = [url host];
+    if (voiceMessageCode.length == 21) {
+        [[self.viewController codeTextField] setText:voiceMessageCode];
+        [self.viewController listenToVoiceMessageWithId:voiceMessageCode];
+    } else {
+        [[self.viewController statusLabel] setText:@"Invalid code"];
+    }
+    return NO;
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
