@@ -41,11 +41,8 @@ enum {
 	[playButton release];
     [uploadButton release];
     [statusLabel release];
-    [statusLabel release];
     [progressIndicator release];
     [codeTextField release];
-    [codeTextField release];
-    [shareButton release];
     [shareButton release];
 	[super dealloc];
 }
@@ -275,6 +272,7 @@ enum {
 {
     [progressIndicator setHidden:YES];
     [recordButton setEnabled:YES];
+    [codeTextField setEnabled:YES];
 
     // Only process status 200 (everything is ok)
     if(request.responseStatusCode == 200) {
@@ -352,7 +350,7 @@ enum {
     MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
     controller.mailComposeDelegate = self;
     [controller setSubject:@"You've got a VoiceMessage!"];
-    NSString *message = [NSString stringWithFormat:@"Hi, I have recorded a VoiceMessage for you.\r\n\r\nYou can listen to it by having VoiceMessage installed and clicking this link: voicemessage://%@", codeTextField.text];
+    NSString *message = [NSString stringWithFormat:@"Hi, I have recorded a VoiceMessage for you.\r\n\r\nYou can listen to it by having VoiceMessage installed and clicking this link: voicemessage://%@\r\n\r\n", codeTextField.text];
     [controller setMessageBody:message isHTML:NO]; 
     if (controller) [self presentModalViewController:controller animated:YES];
     [controller release];
