@@ -26,8 +26,8 @@ Mac OS X v10.7.2, Xcode 4.1, iPhone OS 5.0
 ===========================================================================
 RUNTIME REQUIREMENTS:
 
-Simulator: Mac OS X v10.5.5
-iPhone: iPhone OS 2.1
+Simulator: Mac OS X v10.7.2
+iPhone: iPhone OS 5.0
 
 
 ===========================================================================
