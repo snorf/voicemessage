@@ -17,6 +17,10 @@ One change that I did to the SpeakHere sample was to lower the quality to The iL
 There is a lot missing as of now. First of all there is a limit of 1 MB in Google App Engine blobs which will let you record about 7-8 minutes of voice, after that the upload will fail.
 Also there is minimal error handling when the server cannot be reached.
 
+I would really like to add test cases but I haven't had time, I spent 4 hours with XCode 4.2 trying to understand why one project was able to run Application tests and the other one complained about logic tests. Suddenly everything started working and I think it had to do with the Application name, love XCode.
+
+Keep in mind that this is a bedroom coded project, the code is not bulletproof.
+
 ===========================================================================
 BUILD REQUIREMENTS:
 
